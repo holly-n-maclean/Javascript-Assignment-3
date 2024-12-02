@@ -17,6 +17,13 @@ const apodImg = document.querySelector('#apod');
 const explanation = document.querySelector('#explanation');
 const copyright = document.querySelector('#copyright');
 
+//Date handling for min and max date for in the input 
+//takes min date as the first APOD img, and max is current date
+const firstDate = '1995-06-16'; 
+const currentDate =new Date().toISOString().slice(0, 10); //gets todays date in yyyy-mm-dd format
+dateInput.min = firstDate;
+dateInput.max = currentDate;
+
 //Function to fetch APOD
 function fetchApod(date = '') { // date may or many not be provided
     url = `${baseUrl}?api_key=${key}`; //base url + api
@@ -47,10 +54,13 @@ function displayAPOD(json) {
 //Event listener chosen date
 dateInput.addEventListener('change', () => {
     const chooseDate = dateInput.value;
-    const currentDate =new Date().toISOString().slice(0, 10); //gets todays date in yyyy-mm-dd format
-    //if statement to compare dates, date must be previous to current date
+    //if statement to compare dates
+
     if(chooseDate > currentDate) {
         alert('Please choose a date previous to today');
+    } 
+    else if(chooseDate < firstDate) {
+        alert('Astronomy Picture of the Day started on June 16, 1995');
     } else {
         fetchApod(chooseDate);
     }
