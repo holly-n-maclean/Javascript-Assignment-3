@@ -3,6 +3,8 @@
 //https://apod.nasa.gov/apod/astropix.html - APOD website
 //https://github.com/nasa/apod-api - provides extra information on the api, including available fields
 //https://barker.codes/blog/how-to-get-todays-date-in-vanilla-js/ - used to learn to get todays date for comparison
+//CAN USE DATE 2022-01-25 TO TEST VIDEO (since most entries are images)
+//https://dev.to/supunkavinda/javascript-and-iframes-87 - used to learn about iframes for embedding video.
 
 //Base url and api key for APOD
 const baseUrl = 'https://api.nasa.gov/planetary/apod';
@@ -13,11 +15,11 @@ let url;
 const dateInput = document.querySelector('#date');
 const title = document.querySelector('#title');
 const imageDate = document.querySelector('#imageDate');
-const apodImg = document.querySelector('#apod');
+const apod = document.querySelector('#apod');
 const explanation = document.querySelector('#explanation');
 const copyright = document.querySelector('#copyright');
 
-//Date handling for min and max date for in the input 
+//Date handling for min and max date for picking date
 //takes min date as the first APOD img, and max is current date
 const firstDate = '1995-06-16'; 
 const currentDate =new Date().toISOString().slice(0, 10); //gets todays date in yyyy-mm-dd format
@@ -41,15 +43,36 @@ function fetchApod(date = '') { // date may or many not be provided
         });
 }
 
-//Function displays the APOD
-function displayAPOD(json) {
-    title.textContent = json.title;
-    imageDate.textContent = json.date;
-    apodImg.src = json.url;
-    apodImg.alt = json.title;
-    explanation.textContent = json.explanation;
-    copyright.textContent = json.copyright;
-}
+    //Function displays the APOD
+    function displayAPOD(json) {
+        apod.innerHTML = ''; 
+
+        //checks media type
+        if(json.media_type === 'video') { 
+            //creates iframe element for video
+            const iframe = document.createElement('iframe');
+            //iframe attributes
+            iframe.src = json.url;
+            iframe.width = '100%';
+            iframe.height = '450px';
+            //append iframe to apod
+            apod.appendChild(iframe);
+        } 
+        else if(json.media_type === 'image') {
+            //creates image element for image
+            const img = document.createElement('img');
+            //image attributes
+            img.src = json.url;
+            img.alt = json.title;
+            //append image to apod
+            apod.appendChild(img);
+        }
+        //display title, date, etc.
+        title.textContent = json.title;
+        imageDate.textContent = json.date;
+        explanation.textContent = json.explanation;
+        copyright.textContent = json.copyright;
+    }
 
 //Event listener chosen date
 dateInput.addEventListener('change', () => {
