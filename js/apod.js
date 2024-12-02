@@ -13,6 +13,8 @@ const dateInput = document.querySelector('#date');
 const title = document.querySelector('#title');
 const imageDate = document.querySelector('#imageDate');
 const apodImg = document.querySelector('#apod');
+const explanation = document.querySelector('#explanation');
+const copyright = document.querySelector('#copyright');
 
 //Function to fetch APOD
 function fetchApod(date = '') { // date may or many not be provided
@@ -37,6 +39,8 @@ function displayAPOD(json) {
     imageDate.textContent = json.date;
     apodImg.src = json.url;
     apodImg.alt = json.title;
+    explanation.textContent = json.explanation;
+    copyright.textContent = json.copyright;
 }
 
 //Event listener chosen date
