@@ -2,8 +2,9 @@
 //https://api.nasa.gov/ - for nasa api getting started and available apis
 //https://apod.nasa.gov/apod/astropix.html - APOD website
 //https://github.com/nasa/apod-api - provides extra information on the api, including available fields
+//https://barker.codes/blog/how-to-get-todays-date-in-vanilla-js/ - used to learn to get todays date for comparison
 
-
+//Base url and api key for APOD
 const baseUrl = 'https://api.nasa.gov/planetary/apod';
 const key = 'OnIbR9o5oEN0Pq90P3lqRunpOdJhijj5OIzmzLRh';
 let url;
@@ -46,7 +47,11 @@ function displayAPOD(json) {
 //Event listener chosen date
 dateInput.addEventListener('change', () => {
     const chooseDate = dateInput.value;
-    if(chooseDate) {
+    const currentDate =new Date().toISOString().slice(0, 10); //gets todays date in yyyy-mm-dd format
+    //if statement to compare dates, date must be previous to current date
+    if(chooseDate > currentDate) {
+        alert('Please choose a date previous to today');
+    } else {
         fetchApod(chooseDate);
     }
 });
