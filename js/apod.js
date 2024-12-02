@@ -9,10 +9,10 @@ const key = 'OnIbR9o5oEN0Pq90P3lqRunpOdJhijj5OIzmzLRh';
 let url;
 
 //Reference to DOM elements
-const dateInput = document.querySelector('.date');
-const title = document.querySelector('.title');
-const date = document.querySelector('.imageDate');
-const apodImg = document.querySelector('.apod');
+const dateInput = document.querySelector('#date');
+const title = document.querySelector('#title');
+const imageDate = document.querySelector('#imageDate');
+const apodImg = document.querySelector('#apod');
 
 //Function to fetch APOD
 function fetchApod(date = '') { // date may or many not be provided
@@ -31,11 +31,23 @@ function fetchApod(date = '') { // date may or many not be provided
         });
 }
 
-//function displays the APOD
+//Function displays the APOD
 function displayAPOD(json) {
     title.textContent = json.title;
-    date.textContent = json.date;
+    imageDate.textContent = json.date;
     apodImg.src = json.url;
     apodImg.alt = json.title;
 }
 
+//Event listener chosen date
+dateInput.addEventListener('change', () => {
+    const chooseDate = dateInput.value;
+    if(chooseDate) {
+        fetchApod(chooseDate);
+    }
+});
+
+//Event listener to fetch APOD when page first loads
+document.addEventListener('DOMContentLoaded', () => {
+    fetchApod();
+});
