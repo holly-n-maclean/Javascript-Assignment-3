@@ -78,7 +78,7 @@ function fetchApod(date = '') { // date may or many not be provided
 
         //display title, date, etc.
         title.textContent = json.title;
-        imageDate.textContent = `Date: ${json.date}`;
+        imageDate.textContent = json.date ? `Date: ${json.date}` : '';
         explanation.textContent = json.explanation 
         copyright.textContent = json.copyright ? `Credit: ${json.copyright}` : ''; }
 
