@@ -66,7 +66,16 @@ function fetchApod(date = '') { // date may or many not be provided
             img.alt = json.title;
             //append image to apod
             apod.appendChild(img);
+        } 
+        //Adding message for when APOD isn't available(newer dates may not be updated yet)
+        else {
+            //create a p element for message
+            const message = document.createElement('p');
+            message.textContent = 'APOD not available for this date right now';
+            //append to apod
+            apod.appendChild(message);
         }
+
         //display title, date, etc.
         title.textContent = json.title;
         imageDate.textContent = `Date: ${json.date}`;
