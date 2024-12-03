@@ -1,10 +1,10 @@
 //Closely following lesson 11 nytimes lesson example for structure
 //https://api.nasa.gov/ - for nasa api getting started and available apis
 //https://apod.nasa.gov/apod/astropix.html - APOD website
-//https://github.com/nasa/apod-api - provides extra information on the api, including available fields
-//https://barker.codes/blog/how-to-get-todays-date-in-vanilla-js/ - used to learn to get todays date for comparison
+//https://github.com/nasa/apod-api - provides extra information on the api, including available fields to use
+//https://barker.codes/blog/how-to-get-todays-date-in-vanilla-js/ - used to learn to get todays date in yyyy-mm-dd format
 //CAN USE DATE 2022-01-25 TO TEST VIDEO (since most entries are images)
-//https://dev.to/supunkavinda/javascript-and-iframes-87 - used to learn about iframes for embedding video.
+//https://dev.to/supunkavinda/javascript-and-iframes-87 - used to learn about iframes for embedding video entries on page
 
 //Base url and api key for APOD
 const baseUrl = 'https://api.nasa.gov/planetary/apod';
@@ -69,10 +69,9 @@ function fetchApod(date = '') { // date may or many not be provided
         }
         //display title, date, etc.
         title.textContent = json.title;
-        imageDate.textContent = json.date;
-        explanation.textContent = json.explanation;
-        copyright.textContent = json.copyright;
-    }
+        imageDate.textContent = `Date: ${json.date}`;
+        explanation.textContent = json.explanation 
+        copyright.textContent = json.copyright ? `Credit: ${json.copyright}` : ''; }
 
 //Event listener chosen date
 dateInput.addEventListener('change', () => {
